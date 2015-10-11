@@ -9,8 +9,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
+import assignment.cisco.exception.BadRequestException;
 import assignment.cisco.model.ObjectModel;
-import assignment.cisco.util.exception.BadRequestException;
 
 public class ObjectModelDeserializer extends JsonDeserializer<ObjectModel>{
 	

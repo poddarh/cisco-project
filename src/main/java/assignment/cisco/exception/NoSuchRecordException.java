@@ -1,4 +1,4 @@
-package assignment.cisco.util.exception;
+package assignment.cisco.exception;
 
 import org.springframework.http.HttpStatus;
 

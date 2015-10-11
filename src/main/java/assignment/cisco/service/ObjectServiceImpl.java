@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import assignment.cisco.exception.NoSuchRecordException;
 import assignment.cisco.model.ObjectModel;
 import assignment.cisco.repository.ObjectRepository;
-import assignment.cisco.util.exception.NoSuchRecordException;
 
 @Service
 public class ObjectServiceImpl implements ObjectService {

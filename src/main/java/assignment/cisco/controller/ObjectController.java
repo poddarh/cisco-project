@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import assignment.cisco.exception.BadRequestException;
+import assignment.cisco.exception.NoSuchRecordException;
+import assignment.cisco.exception.RestException;
 import assignment.cisco.model.ObjectModel;
 import assignment.cisco.model.URL;
 import assignment.cisco.service.ObjectService;
 import assignment.cisco.util.HttpRequestUtil;
-import assignment.cisco.util.exception.BadRequestException;
-import assignment.cisco.util.exception.NoSuchRecordException;
-import assignment.cisco.util.exception.RestException;
 
 @RestController
 @RequestMapping(value="${endpoint.objects}", produces="application/json")
@@ -36,8 +36,10 @@ public class ObjectController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public List<URL> findAll(@Value("${endpoint.objects}") String endpoint) {
+		
 		List<String> ids = objectService.getAllUids();
 		String baseURL = requestUtil.getBaseURL();
+		
 		List<URL> urls = ids.stream()
 							.map(id -> new URL(baseURL + endpoint + "/" + id))
 							.collect(Collectors.toList());

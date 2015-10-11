@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import assignment.cisco.util.exception.RestException;
+import assignment.cisco.exception.RestException;
 
 @RestController
 @RequestMapping(produces="application/json")

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import assignment.cisco.exception.RestException;
 import assignment.cisco.model.ErrorModel;
-import assignment.cisco.util.exception.RestException;
 
 @ControllerAdvice
 public class GenericExceptionHandler{
