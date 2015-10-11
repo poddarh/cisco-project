@@ -1,8 +1,10 @@
 package assignment.cisco.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import assignment.cisco.model.ObjectModel;
 import assignment.cisco.model.URL;
 import assignment.cisco.service.ObjectService;
+import assignment.cisco.util.HttpRequestUtil;
 import assignment.cisco.util.exception.BadRequestException;
 import assignment.cisco.util.exception.NoSuchRecordException;
 import assignment.cisco.util.exception.RestException;
@@ -20,16 +23,25 @@ import assignment.cisco.util.exception.RestException;
 @RestController
 @RequestMapping(value="${endpoint.objects}", produces="application/json")
 public class ObjectController {
+	
 	private ObjectService objectService;
+	private HttpRequestUtil requestUtil;
 	
 	@Autowired
-	public ObjectController(ObjectService objectService) {
+	public ObjectController(ObjectService objectService, HttpRequestUtil requestUtil) {
+		super();
 		this.objectService = objectService;
+		this.requestUtil = requestUtil;
 	}
 
 	@RequestMapping(method=RequestMethod.GET)
-	public List<URL> findAll() {
-		return objectService.getUrls();
+	public List<URL> findAll(@Value("${endpoint.objects}") String endpoint) {
+		List<String> ids = objectService.getAllUids();
+		String baseURL = requestUtil.getBaseURL();
+		List<URL> urls = ids.stream()
+							.map(id -> new URL(baseURL + endpoint + "/" + id))
+							.collect(Collectors.toList());
+		return urls;
 	}
 
 	@RequestMapping(value="/{uid}", method=RequestMethod.GET)

@@ -4,19 +4,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import assignment.cisco.model.ObjectModel;
-import assignment.cisco.model.URL;
 import assignment.cisco.repository.ObjectRepository;
 import assignment.cisco.util.exception.NoSuchRecordException;
 
 @Service
 public class ObjectServiceImpl implements ObjectService {
-	
-	@Value("${public-url}${endpoint.objects}/")
-	private String urlPrefix;
 	
 	private final ObjectRepository objectRepository;
 	
@@ -26,10 +21,10 @@ public class ObjectServiceImpl implements ObjectService {
 	}
 
 	@Override
-	public List<URL> getUrls() {
+	public List<String> getAllUids() {
 		List<ObjectModel> objectModels = objectRepository.findAllIds();
 		return objectModels.stream()
-						   .map( o -> new URL(urlPrefix + o.getUid()) )
+						   .map(ObjectModel::getUid)
 						   .collect(Collectors.toList());
 	}
 

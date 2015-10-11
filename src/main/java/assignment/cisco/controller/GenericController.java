@@ -8,7 +8,7 @@ import assignment.cisco.util.exception.RestException;
 
 @RestController
 @RequestMapping(produces="application/json")
-public class AllController {
+public class GenericController {
 	
 	@RequestMapping("/**")
 	public void handleRequestsNotSupported() {

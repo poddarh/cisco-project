@@ -14,8 +14,8 @@ import assignment.cisco.model.ErrorModel;
 import assignment.cisco.util.exception.RestException;
 
 @ControllerAdvice
-public class MyExceptionHandler{
-	private static final Logger log = LoggerFactory.getLogger(MyExceptionHandler.class);
+public class GenericExceptionHandler{
+	private static final Logger log = LoggerFactory.getLogger(GenericExceptionHandler.class);
 	
 	@ResponseBody
 	@ExceptionHandler({Exception.class, RuntimeException.class})
