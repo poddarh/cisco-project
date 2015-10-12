@@ -38,7 +38,7 @@ public class ObjectServiceImpl implements ObjectService {
 	
 	@Override
 	public ObjectModel insert(ObjectModel object) {
-		return objectRepository.insert(object);
+		return objectRepository.save(object);
 	}
 
 	@Override

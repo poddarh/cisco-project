@@ -5,6 +5,8 @@ public class ErrorModel {
 	private String url;
 	private String message;
 	
+	public ErrorModel() {}
+	
 	public ErrorModel(String message) {
 		this.message = message;
 	}
