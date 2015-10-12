@@ -63,7 +63,12 @@ public class Record {
 			return false;
 		return true;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Record [uid=" + uid + ", data=" + data + "]";
+	}
+	
 	// Getters and setters...
 	public final String getUid() {
 		return uid;

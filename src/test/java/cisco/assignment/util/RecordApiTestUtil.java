@@ -1,5 +1,6 @@
 package cisco.assignment.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,10 @@ public class RecordApiTestUtil {
 	private final String ENDPOINT;
 	private final String UID_ENDPOINT;
 	
+	@Autowired
 	public RecordApiTestUtil(@Value("${endpoint.records}") String endpoint) {
 		ENDPOINT = "http://localhost:8080"+endpoint;
-		UID_ENDPOINT = "http://localhost:8080/api+"+endpoint+"/{uid}";
+		UID_ENDPOINT = ENDPOINT+"/{uid}";
 	}
 	
 	public <T, D> T request (D data, HttpMethod method, Class<T> clazz) throws JsonProcessingException {

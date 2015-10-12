@@ -32,7 +32,7 @@ import cisco.assignment.util.SampleMapData;
 @SpringApplicationConfiguration(classes = {RecordApplication.class, EmbeddedMongoConfiguration.class})
 public class RecordApiTest {
 	
-	@Autowired RecordApiTestUtil objCtrlTestUtil;
+	@Autowired RecordApiTestUtil recordApiTestUtil;
 	@Autowired RecordRepository recordRepository;
 	
 	@Before
@@ -45,11 +45,11 @@ public class RecordApiTest {
 		
 		Map<String, Object> map = SampleMapData.simpleData1();
 		
-		Record record1 = objCtrlTestUtil.request(map, HttpMethod.POST, Record.class);
+		Record record1 = recordApiTestUtil.request(map, HttpMethod.POST, Record.class);
 		assertNotNull(record1);
 		assertEquals(map, record1.getData());
 		
-		Record record2 = objCtrlTestUtil.request(record1.getUid(), HttpMethod.GET, Record.class);
+		Record record2 = recordApiTestUtil.request(record1.getUid(), HttpMethod.GET, Record.class);
 		assertNotNull(record2);
 		assertEquals(record1, record2);
 		
@@ -60,12 +60,12 @@ public class RecordApiTest {
 
 		Map<String, Object> map = SampleMapData.nestedData1();
 		
-		Record record1 = objCtrlTestUtil.request(map, HttpMethod.POST, Record.class);
+		Record record1 = recordApiTestUtil.request(map, HttpMethod.POST, Record.class);
 		assertNotNull(record1);
 		assertNotNull(record1.getUid());
 		assertEquals(map,record1.getData());
 		
-		Record record2 = objCtrlTestUtil.request(record1.getUid(), HttpMethod.GET, Record.class);
+		Record record2 = recordApiTestUtil.request(record1.getUid(), HttpMethod.GET, Record.class);
 		assertNotNull(record2);
 		assertEquals(record1, record2);
 		
@@ -76,12 +76,12 @@ public class RecordApiTest {
 		
 		Map<String, Object> map = SampleMapData.nestedData2();
 		
-		Record record1 = objCtrlTestUtil.request(map, HttpMethod.POST, Record.class);
+		Record record1 = recordApiTestUtil.request(map, HttpMethod.POST, Record.class);
 		assertNotNull(record1);
 		assertNotNull(record1.getUid());
 		assertEquals(map,record1.getData());
 		
-		Record record2 = objCtrlTestUtil.request(map, HttpMethod.POST, Record.class);
+		Record record2 = recordApiTestUtil.request(map, HttpMethod.POST, Record.class);
 		assertNotNull(record2);
 		assertNotNull(record2.getUid());
 		assertEquals(map,record2.getData());
@@ -95,7 +95,7 @@ public class RecordApiTest {
 		
 		Map<String, Object> map1 = SampleMapData.simpleData1();
 
-		Record record1 = objCtrlTestUtil.request(map1, HttpMethod.POST, Record.class);
+		Record record1 = recordApiTestUtil.request(map1, HttpMethod.POST, Record.class);
 		assertNotNull(record1);
 		assertNotNull(record1.getUid());
 		assertEquals(map1,record1.getData());
@@ -103,11 +103,11 @@ public class RecordApiTest {
 		Map<String, Object> map2 = SampleMapData.nestedData1();
 		Record requestObject = new Record(record1.getUid(), map2);
 							
-		Record record2 = objCtrlTestUtil.request(record1.getUid(), requestObject, HttpMethod.PUT, Record.class);
+		Record record2 = recordApiTestUtil.request(record1.getUid(), requestObject, HttpMethod.PUT, Record.class);
 		assertNotNull(record2);
 		assertEquals(requestObject, record2);
 		
-		Record record3 = objCtrlTestUtil.request(record1.getUid(), HttpMethod.GET, Record.class);
+		Record record3 = recordApiTestUtil.request(record1.getUid(), HttpMethod.GET, Record.class);
 		assertNotNull(record3);
 		assertEquals(record2, record3);
 		
@@ -119,21 +119,21 @@ public class RecordApiTest {
 		Map<String, Object> map1 = SampleMapData.simpleData1();
 		Map<String, Object> map2 = SampleMapData.nestedData1();
 		
-		Record record1 = objCtrlTestUtil.request(map1, HttpMethod.POST, Record.class);
+		Record record1 = recordApiTestUtil.request(map1, HttpMethod.POST, Record.class);
 		assertNotNull(record1);
 		assertNotNull(record1.getUid());
 		assertEquals(map1,record1.getData());
 		
-		Record record2 = objCtrlTestUtil.request(map2, HttpMethod.POST, Record.class);
+		Record record2 = recordApiTestUtil.request(map2, HttpMethod.POST, Record.class);
 		assertNotNull(record2);
 		assertNotNull(record2.getUid());
 		assertEquals(map2,record2.getData());
 		
-		objCtrlTestUtil.request(record1.getUid(), HttpMethod.DELETE);
-		ErrorModel error = objCtrlTestUtil.request(record1.getUid(), HttpMethod.GET, ErrorModel.class);
+		recordApiTestUtil.request(record1.getUid(), HttpMethod.DELETE);
+		ErrorModel error = recordApiTestUtil.request(record1.getUid(), HttpMethod.GET, ErrorModel.class);
 		assertNotNull(error);
 		
-		Record record3 = objCtrlTestUtil.request(record2.getUid(), HttpMethod.GET, Record.class);
+		Record record3 = recordApiTestUtil.request(record2.getUid(), HttpMethod.GET, Record.class);
 		assertNotNull(record3);
 		assertEquals(record2, record3);
 		
@@ -145,17 +145,17 @@ public class RecordApiTest {
 		Map<String, Object> map1 = SampleMapData.simpleData2();
 		Map<String, Object> map2 = SampleMapData.nestedData2();
 		
-		Record record1 = objCtrlTestUtil.request(map1, HttpMethod.POST, Record.class);
+		Record record1 = recordApiTestUtil.request(map1, HttpMethod.POST, Record.class);
 		assertNotNull(record1);
 		assertNotNull(record1.getUid());
 		assertEquals(map1,record1.getData());
 		
-		Record record2 = objCtrlTestUtil.request(map2, HttpMethod.POST, Record.class);
+		Record record2 = recordApiTestUtil.request(map2, HttpMethod.POST, Record.class);
 		assertNotNull(record2);
 		assertNotNull(record2.getUid());
 		assertEquals(map2,record2.getData());
 		
-		List<URL> urls = asList(objCtrlTestUtil.request(null, HttpMethod.GET, URL[].class));
+		List<URL> urls = asList(recordApiTestUtil.request(null, HttpMethod.GET, URL[].class));
 		assertEquals(urls.size(), 2);
 		
 		for (URL url : urls) {
