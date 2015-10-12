@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import cisco.assignment.serializer.RecordDeserializer;
-import cisco.assignment.serializer.RecordSerializer;
+import cisco.assignment.util.serializer.RecordDeserializer;
+import cisco.assignment.util.serializer.RecordSerializer;
 
 @Document(collection="records")
 @JsonSerialize(using = RecordSerializer.class)

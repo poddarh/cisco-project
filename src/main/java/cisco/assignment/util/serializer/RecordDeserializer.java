@@ -1,4 +1,4 @@
-package cisco.assignment.serializer;
+package cisco.assignment.util.serializer;
 
 import java.io.IOException;
 import java.util.Map;
