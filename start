@@ -1,0 +1,2 @@
+#!/bin/bash
+java -jar ./target/records-*.jar --server.port=80
