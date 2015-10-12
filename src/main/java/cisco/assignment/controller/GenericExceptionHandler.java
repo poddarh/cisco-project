@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,10 +36,17 @@ public class GenericExceptionHandler{
 		HttpStatus status = null;
 		if(e instanceof RestException){
 			status = ((RestException)e).getHttpStatus();
+			em.setMessage(e.getMessage());
+			log.warn(status.value() + ": " + em.getMessage());
+		}
+		else if(e instanceof HttpMessageNotReadableException){
+			status = HttpStatus.BAD_REQUEST;
+			em.setMessage("Invalid JSON sent");
 			log.warn(status.value() + ": " + em.getMessage());
 		}
 		else{
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			em.setMessage("There was an Internal Server Error.");
 			log.error(em.getMessage(), em);
 		}
 		
@@ -47,7 +55,7 @@ public class GenericExceptionHandler{
 	}
 	
 	private ErrorModel getErrorModel(Exception e, HttpServletRequest request) {
-		ErrorModel errorModel = new ErrorModel(e.getMessage());
+		ErrorModel errorModel = new ErrorModel();
 		errorModel.setUrl(request.getRequestURL().toString());
 		errorModel.setVerb(request.getMethod());
 		return errorModel;

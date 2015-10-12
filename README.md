@@ -16,7 +16,6 @@ This is an API to persist and retrieve arbitrary data.
 - __Windows__
   - Extract the `records.zip` file
   - Build the project by running `build.cmd`
-  - Build the project by running `./build`
  
 ##### Running Instructions
 - __Linux/Mac__
