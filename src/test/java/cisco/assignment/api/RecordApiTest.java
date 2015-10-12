@@ -1,15 +1,21 @@
 package cisco.assignment.api;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.HttpMethod;
@@ -17,8 +23,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import cisco.assignment.RecordApplication;
 import cisco.assignment.EmbeddedMongoConfiguration;
+import cisco.assignment.RecordApplication;
 import cisco.assignment.model.ErrorModel;
 import cisco.assignment.model.Record;
 import cisco.assignment.model.URL;
@@ -27,13 +33,21 @@ import cisco.assignment.util.RecordApiTestUtil;
 import cisco.assignment.util.RestTestUtil;
 import cisco.assignment.util.SampleMapData;
 
-@WebIntegrationTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RecordApplication.class, EmbeddedMongoConfiguration.class})
+@WebIntegrationTest(randomPort=true)
 public class RecordApiTest {
 	
 	@Autowired RecordApiTestUtil recordApiTestUtil;
 	@Autowired RecordRepository recordRepository;
+	
+	@Value("${local.server.port}") private int port;
+	@Value("${endpoint.records}") private String endpoint;
+	
+	@PostConstruct
+	private void configure() {
+		recordApiTestUtil.configure(port, endpoint);
+	}
 	
 	/**
 	 * Clear the database before any test
