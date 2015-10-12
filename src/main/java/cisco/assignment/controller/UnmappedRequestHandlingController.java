@@ -8,7 +8,7 @@ import cisco.assignment.exception.RestException;
 
 @RestController
 @RequestMapping(produces="application/json")
-public class GenericController {
+public class UnmappedRequestHandlingController {
 	
 	/**
 	 * This method is used to capture all unmapped requests and throw an exception that will be caught by
