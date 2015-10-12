@@ -18,6 +18,13 @@ import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 
+/**
+ * 
+ * Configuration to use an embedded DB for tests instead of the main DB
+ * 
+ * @author harsh
+ *
+ */
 @Configuration
 public class EmbeddedMongoConfiguration {
     private static final MongodStarter starter = MongodStarter.getDefaultInstance();

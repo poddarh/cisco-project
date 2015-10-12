@@ -11,7 +11,12 @@ import cisco.assignment.model.Record;
 import cisco.assignment.util.JsonUtil;
 import cisco.assignment.util.SampleMapData;
 
-public class SerializerTest {
+/**
+ * Testing the serializer and deserializer for the Record object.
+ * @author harsh
+ *
+ */
+public class RecordSerialiazationTest {
 	
 	@Test
 	public void testDeserialize() throws IOException {

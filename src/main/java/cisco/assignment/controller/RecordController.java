@@ -29,13 +29,12 @@ public class RecordController {
 	
 	@Autowired
 	public RecordController(RecordService recordService, HttpRequestUtil requestUtil) {
-		super();
 		this.recordService = recordService;
 		this.requestUtil = requestUtil;
 	}
 
 	@RequestMapping(method=RequestMethod.GET)
-	public List<URL> findAll(@Value("${endpoint.records}") String endpoint) {
+	public List<URL> findAllUrls(@Value("${endpoint.records}") String endpoint) {
 		
 		List<String> ids = recordService.getAllUids();
 		String baseURL = requestUtil.getBaseURL();
@@ -52,7 +51,7 @@ public class RecordController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
-	public Record save(@RequestBody Record model) {
+	public Record insert(@RequestBody Record model) {
 		
 		if(model.getUid() != null)
 			throw new BadRequestException("Cannot POST a uid in the object.");

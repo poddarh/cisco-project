@@ -17,20 +17,32 @@ import cisco.assignment.model.ErrorModel;
 public class GenericExceptionHandler{
 	private static final Logger log = LoggerFactory.getLogger(GenericExceptionHandler.class);
 	
+	/**
+	 * 
+	 * This method handles all kinds of exceptions thrown by any of the controllers.
+	 * 
+	 * @param e the exception thrown
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @return an ErrorModel object which is to be serialized to JSON and returned.
+	 */
+	
 	@ResponseBody
-	@ExceptionHandler({Exception.class, RuntimeException.class})
+	@ExceptionHandler(Exception.class)
 	public ErrorModel handleAllExceptions(Exception e, HttpServletRequest request, HttpServletResponse response) {
 		ErrorModel em = getErrorModel(e, request);
 		
 		HttpStatus status = null;
-		if(e instanceof RestException)
+		if(e instanceof RestException){
 			status = ((RestException)e).getHttpStatus();
-		else
+			log.warn(status.value() + ": " + em.getMessage());
+		}
+		else{
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			log.error(em.getMessage(), em);
+		}
 		
 		response.setStatus(status.value());
-		
-		log.info(em.getMessage());
 		return em;
 	}
 	

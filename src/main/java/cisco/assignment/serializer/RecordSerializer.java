@@ -10,6 +10,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import cisco.assignment.model.Record;
 
+/**
+ * Used to serialize the {@link Record} model
+ * @author harsh
+ *
+ */
 public class RecordSerializer extends JsonSerializer<Record>{
 	
 	@Override

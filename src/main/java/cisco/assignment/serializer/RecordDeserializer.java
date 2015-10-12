@@ -12,8 +12,14 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import cisco.assignment.exception.BadRequestException;
 import cisco.assignment.model.Record;
 
+/**
+ * Used to deserialize the {@link Record} model
+ * @author harsh
+ *
+ */
 public class RecordDeserializer extends JsonDeserializer<Record>{
 	
+	// Maintains a TypeReference for Map<String, Object> which is used to deserialize the Record
 	private static final TypeReference<Map<String, Object>> TYPE_REFERENCE;
 	static{
 		TYPE_REFERENCE = new TypeReference<Map<String, Object>>() {};
@@ -30,7 +36,7 @@ public class RecordDeserializer extends JsonDeserializer<Record>{
 		
 		Map<String, Object> data = jp.readValueAs(TYPE_REFERENCE);
 		
-		Record model = new Record();
+		Record record = new Record();
 		Object uidObj = data.remove("uid");
 		
 		if(uidObj != null){
@@ -41,12 +47,12 @@ public class RecordDeserializer extends JsonDeserializer<Record>{
 			else
 				throw new BadRequestException("'uid' should be a string");
 			
-			model.setUid(uid);
+			record.setUid(uid);
 		}
 		
-		model.setData(data);
+		record.setData(data);
 		
-		return model;
+		return record;
 	}
 	
 }

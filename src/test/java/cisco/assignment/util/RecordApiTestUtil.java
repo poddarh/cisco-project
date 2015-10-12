@@ -19,6 +19,10 @@ public class RecordApiTestUtil {
 		UID_ENDPOINT = ENDPOINT+"/{uid}";
 	}
 	
+	public <T, D> T request (HttpMethod method, Class<T> clazz) throws JsonProcessingException {
+		return RestTestUtil.request(ENDPOINT, null, method, clazz);
+	}
+	
 	public <T, D> T request (D data, HttpMethod method, Class<T> clazz) throws JsonProcessingException {
 		return RestTestUtil.request(ENDPOINT, data, method, clazz);
 	}

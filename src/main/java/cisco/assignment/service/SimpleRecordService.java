@@ -24,8 +24,8 @@ public class SimpleRecordService implements RecordService {
 	public List<String> getAllUids() {
 		List<Record> records = recordRepository.findAllIds();
 		return records.stream()
-						   .map(Record::getUid)
-						   .collect(Collectors.toList());
+				      .map(Record::getUid)
+				      .collect(Collectors.toList());
 	}
 
 	@Override

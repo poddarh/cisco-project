@@ -10,8 +10,12 @@ import cisco.assignment.exception.RestException;
 @RequestMapping(produces="application/json")
 public class GenericController {
 	
+	/**
+	 * This method is used to capture all unmapped requests and throw an exception that will be caught by
+	 * the {@link GenericExceptionHandler}
+	 */
 	@RequestMapping("/**")
 	public void handleRequestsNotSupported() {
-		throw new RestException("Invalid endpoint or method not supported", HttpStatus.NOT_FOUND);
+		throw new RestException("Invalid endpoint", HttpStatus.NOT_FOUND);
 	}
 }
