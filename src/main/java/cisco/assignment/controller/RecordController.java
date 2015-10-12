@@ -15,29 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 import cisco.assignment.exception.BadRequestException;
 import cisco.assignment.exception.NoSuchRecordException;
 import cisco.assignment.exception.RestException;
-import cisco.assignment.model.ObjectModel;
+import cisco.assignment.model.Record;
 import cisco.assignment.model.URL;
-import cisco.assignment.service.ObjectService;
+import cisco.assignment.service.RecordService;
 import cisco.assignment.util.HttpRequestUtil;
 
 @RestController
-@RequestMapping(value="${endpoint.objects}", produces="application/json")
-public class ObjectController {
+@RequestMapping(value="${endpoint.records}", produces="application/json")
+public class RecordController {
 	
-	private ObjectService objectService;
+	private RecordService recordService;
 	private HttpRequestUtil requestUtil;
 	
 	@Autowired
-	public ObjectController(ObjectService objectService, HttpRequestUtil requestUtil) {
+	public RecordController(RecordService recordService, HttpRequestUtil requestUtil) {
 		super();
-		this.objectService = objectService;
+		this.recordService = recordService;
 		this.requestUtil = requestUtil;
 	}
 
 	@RequestMapping(method=RequestMethod.GET)
-	public List<URL> findAll(@Value("${endpoint.objects}") String endpoint) {
+	public List<URL> findAll(@Value("${endpoint.records}") String endpoint) {
 		
-		List<String> ids = objectService.getAllUids();
+		List<String> ids = recordService.getAllUids();
 		String baseURL = requestUtil.getBaseURL();
 		
 		List<URL> urls = ids.stream()
@@ -47,32 +47,32 @@ public class ObjectController {
 	}
 
 	@RequestMapping(value="/{uid}", method=RequestMethod.GET)
-	public ObjectModel find(@PathVariable String uid) {
-		return objectService.find(uid);
+	public Record find(@PathVariable String uid) {
+		return recordService.find(uid);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
-	public ObjectModel save(@RequestBody ObjectModel model) {
+	public Record save(@RequestBody Record model) {
 		
 		if(model.getUid() != null)
 			throw new BadRequestException("Cannot POST a uid in the object.");
 		
-		return objectService.insert(model);
+		return recordService.insert(model);
 	}
 	
 	@RequestMapping(value="/{uid}", method=RequestMethod.PUT, consumes="application/json")
-	public ObjectModel update(@PathVariable String uid, @RequestBody ObjectModel model) {
+	public Record update(@PathVariable String uid, @RequestBody Record model) {
 		
 		if(!uid.equals(model.getUid()))
 			throw new BadRequestException("Cannot change uid");
 		
-		return objectService.update(model);
+		return recordService.update(model);
 		
 	}
 	
 	@RequestMapping(value="/{uid}", method=RequestMethod.DELETE)
 	public void delete(@PathVariable String uid) throws NoSuchRecordException {
-		objectService.delete(uid);
+		recordService.delete(uid);
 	}
 	
 	@RequestMapping("/**")

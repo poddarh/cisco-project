@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import cisco.assignment.exception.BadRequestException;
-import cisco.assignment.model.ObjectModel;
+import cisco.assignment.model.Record;
 
-public class ObjectModelDeserializer extends JsonDeserializer<ObjectModel>{
+public class RecordDeserializer extends JsonDeserializer<Record>{
 	
 	private static final TypeReference<Map<String, Object>> TYPE_REFERENCE;
 	static{
@@ -20,17 +20,17 @@ public class ObjectModelDeserializer extends JsonDeserializer<ObjectModel>{
 	}
 	
 	@Override
-	public Class<ObjectModel> handledType() {
-		return ObjectModel.class;
+	public Class<Record> handledType() {
+		return Record.class;
 	}
 	
 	@Override
-	public ObjectModel deserialize(JsonParser jp, DeserializationContext ctxt)
+	public Record deserialize(JsonParser jp, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 		
 		Map<String, Object> data = jp.readValueAs(TYPE_REFERENCE);
 		
-		ObjectModel model = new ObjectModel();
+		Record model = new Record();
 		Object uidObj = data.remove("uid");
 		
 		if(uidObj != null){

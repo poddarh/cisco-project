@@ -8,17 +8,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import cisco.assignment.model.ObjectModel;
+import cisco.assignment.model.Record;
 
-public class ObjectModelSerializer extends JsonSerializer<ObjectModel>{
+public class RecordSerializer extends JsonSerializer<Record>{
 	
 	@Override
-	public Class<ObjectModel> handledType() {
-		return ObjectModel.class;
+	public Class<Record> handledType() {
+		return Record.class;
 	}
 	
 	@Override
-	public void serialize(ObjectModel value, JsonGenerator g, SerializerProvider provider)
+	public void serialize(Record value, JsonGenerator g, SerializerProvider provider)
 			throws IOException,JsonProcessingException {
 		
 		g.writeStartObject();

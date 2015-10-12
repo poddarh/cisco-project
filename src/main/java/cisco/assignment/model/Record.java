@@ -9,26 +9,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import cisco.assignment.serializer.ObjectModelDeserializer;
-import cisco.assignment.serializer.ObjectModelSerializer;
+import cisco.assignment.serializer.RecordDeserializer;
+import cisco.assignment.serializer.RecordSerializer;
 
-@Document(collection="objects")
-@JsonSerialize(using = ObjectModelSerializer.class)
-@JsonDeserialize(using = ObjectModelDeserializer.class)
-public class ObjectModel {
+@Document(collection="records")
+@JsonSerialize(using = RecordSerializer.class)
+@JsonDeserialize(using = RecordDeserializer.class)
+public class Record {
 	
 	@Id @Indexed
 	private String uid;
 	private Map<String, Object> data;
 	
-	public ObjectModel() {}
-	public ObjectModel(String uid) {
+	public Record() {}
+	public Record(String uid) {
 		this.uid = uid;
 	}
-	public ObjectModel(Map<String, Object> data) {
+	public Record(Map<String, Object> data) {
 		this.data = data;
 	}
-	public ObjectModel(String uid, Map<String, Object> data) {
+	public Record(String uid, Map<String, Object> data) {
 		this.uid = uid;
 		this.data = data;
 	}
@@ -50,7 +50,7 @@ public class ObjectModel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ObjectModel other = (ObjectModel) obj;
+		Record other = (Record) obj;
 		if (data == null) {
 			if (other.data != null)
 				return false;

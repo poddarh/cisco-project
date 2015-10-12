@@ -1,19 +1,20 @@
 package cisco.assignment.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Component
-public class ObjectAPITestUtil {
+public class RecordApiTestUtil {
 	
 	private final String ENDPOINT;
 	private final String UID_ENDPOINT;
 	
-	{
-		ENDPOINT = "http://localhost:8080/api/objects";
-		UID_ENDPOINT = "http://localhost:8080/api/objects/{uid}";
+	public RecordApiTestUtil(@Value("${endpoint.records}") String endpoint) {
+		ENDPOINT = "http://localhost:8080"+endpoint;
+		UID_ENDPOINT = "http://localhost:8080/api+"+endpoint+"/{uid}";
 	}
 	
 	public <T, D> T request (D data, HttpMethod method, Class<T> clazz) throws JsonProcessingException {

@@ -6,10 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages="cisco.assignment")
-public class ObjectsApplication {
+public class RecordApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ObjectsApplication.class, args);
+        SpringApplication.run(RecordApplication.class, args);
     }
     
 }

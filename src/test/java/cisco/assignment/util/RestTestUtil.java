@@ -9,16 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RestTestUtil {
 	
 	private static final RestTemplate REST_TEMPLATE;
-	private static final ObjectMapper OBJECT_MAPPER;
 	
 	static {
 		REST_TEMPLATE = new TestRestTemplate();
-		OBJECT_MAPPER = new ObjectMapper();
 	}
 	
 	public static <T, D> T request (String url, D data, HttpMethod method, Class<T> clazz, Object... uriVariables) throws JsonProcessingException {
@@ -30,7 +27,7 @@ public class RestTestUtil {
 	
 	public static <D> HttpEntity<String> generateHttpEntity(D data) throws JsonProcessingException {
 		HttpHeaders requestHeaders = getBasicHeaders();
-		String jsonData = jsonString(data);
+		String jsonData = JsonUtil.toJson(data);
 		HttpEntity<String> entity = new HttpEntity<String>(jsonData, requestHeaders);
 		return entity;
 	}
@@ -39,10 +36,6 @@ public class RestTestUtil {
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return requestHeaders;
-	}
-	
-	public static String jsonString(Object obj) throws JsonProcessingException {
-		return OBJECT_MAPPER.writeValueAsString(obj);
 	}
 	
 }
