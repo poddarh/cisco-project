@@ -128,6 +128,25 @@ public class RecordApiTest {
 	}
 	
 	@Test
+	public void testUpdateWithoutId() throws JsonProcessingException {
+		
+		Map<String, Object> map1 = SampleMapData.simpleData1();
+		
+		Record record1 = recordApiTestUtil.request(map1, HttpMethod.POST, Record.class);
+		assertNotNull(record1);
+		assertNotNull(record1.getUid());
+		assertEquals(map1,record1.getData());
+		
+		Map<String, Object> map2 = SampleMapData.nestedData2();
+		
+		Record record2 = recordApiTestUtil.request(record1.getUid(), map2, HttpMethod.PUT, Record.class);
+		assertNotNull(record2);
+		assertEquals(record1.getUid(), record2.getUid());
+		assertEquals(map2, record2.getData());
+		
+	}
+	
+	@Test
 	public void testUpdateId() throws JsonProcessingException {
 		
 		Map<String, Object> map1 = SampleMapData.simpleData1();

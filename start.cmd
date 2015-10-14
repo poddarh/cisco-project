@@ -1,1 +1,1 @@
-java -jar target/records-1.0.0.RELEASE.jar
+java -jar target/records-1.1.0.RELEASE.jar

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cisco.assignment.exception.BadRequestException;
-import cisco.assignment.exception.NoSuchRecordException;
 import cisco.assignment.exception.RestException;
 import cisco.assignment.model.Record;
 import cisco.assignment.model.URL;
@@ -62,15 +61,18 @@ public class RecordController {
 	@RequestMapping(value="/{uid}", method=RequestMethod.PUT, consumes="application/json")
 	public Record update(@PathVariable String uid, @RequestBody Record model) {
 		
-		if(!uid.equals(model.getUid()))
+		// uid can either not be passed or has to be the same as in the url
+		if(model.getUid() != null && !uid.equals(model.getUid()))
 			throw new BadRequestException("Cannot change uid");
+		
+		model.setUid(uid);
 		
 		return recordService.update(model);
 		
 	}
 	
 	@RequestMapping(value="/{uid}", method=RequestMethod.DELETE)
-	public void delete(@PathVariable String uid) throws NoSuchRecordException {
+	public void delete(@PathVariable String uid) {
 		recordService.delete(uid);
 	}
 	

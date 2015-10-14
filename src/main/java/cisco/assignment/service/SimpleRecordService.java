@@ -50,8 +50,6 @@ public class SimpleRecordService implements RecordService {
 
 	@Override
 	public void delete(String id) {
-		if(!recordRepository.exists(id))
-			throw new NoSuchRecordException();
 		recordRepository.delete(id);
 	}
 
