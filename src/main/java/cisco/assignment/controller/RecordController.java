@@ -64,8 +64,8 @@ public class RecordController {
 		// uid can either not be passed or has to be the same as in the url
 		if(model.getUid() != null && !uid.equals(model.getUid()))
 			throw new BadRequestException("Cannot change uid");
-		
-		model.setUid(uid);
+		else
+			model.setUid(uid);
 		
 		return recordService.update(model);
 		
